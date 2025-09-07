@@ -14,23 +14,42 @@ const story = [
         character: null,
         name: 'Narator',
         dialogue: 'Zain tidak pernah percaya pada hal-hal supranatural, sihir, atau takdir. Namun, malam itu, semua keyakinan ilmiahnya runtuh, digantikan oleh sebuah kekosongan yang dingin dan hampa.',
-        next: 'lanjut_pulang'
+        next: 'pulang'
     },
     {
-        id: 'lanjut_pulang',
+        id: 'pulang',
         background: '../images/backgrounds/rumah_gelap.png',
         character: '../images/characters/zain.png',
         name: 'Zain',
         dialogue: 'Mungkin dia sedang ada pameran. Ya, dia pasti sedang ada pameran.',
-        next: 'galeri'
+        next: 'pencarian'
     },
     {
-        id: 'galeri',
+        id: 'pencarian',
+        background: '../images/backgrounds/rumah_gelap.png',
+        character: '../images/characters/zain.png',
+        name: 'Narator',
+        dialogue: 'Satu hari berganti, seminggu berlalu. Panggilan teleponnya tak terjawab. Kekhawatiran itu berubah menjadi kecemasan yang membakar. Zain harus mencarinya.',
+        choices: [
+            { text: 'Pergi ke galeri seni tempat Gracia memamerkan karyanya.', nextScene: 'galeri_pilihan' },
+            { text: 'Mencoba menghubungi keluarga Gracia terlebih dahulu.', nextScene: 'keluarga_pilihan' }
+        ]
+    },
+    {
+        id: 'galeri_pilihan',
         background: '../images/backgrounds/galeri_seni.png',
         character: null,
         name: 'Narator',
-        dialogue: 'Satu hari berganti, seminggu berlalu. Panggilan telepon Zain tak pernah terjawab. Ia bergegas ke galeri seni tempat Gracia biasa memamerkan karyanya.',
+        dialogue: 'Zain bergegas ke galeri seni. Ia menahan nada paniknya saat menyapa sang pemilik galeri.',
         next: 'dialog_pemilik_galeri'
+    },
+    {
+        id: 'keluarga_pilihan',
+        background: '../images/backgrounds/rumah_gelap.png',
+        character: '../images/characters/zain.png',
+        name: 'Narator',
+        dialogue: 'Zain mencoba menelepon keluarga Gracia. Saat suara ayah Gracia menyambutnya, ia disambut dengan nada kebingungan.',
+        next: 'dialog_pemilik_galeri' // Arahkan ke adegan yang sama setelah dialog ini
     },
     {
         id: 'dialog_pemilik_galeri',
@@ -74,13 +93,12 @@ const story = [
     }
 ];
 
-// Fungsi utama untuk mengontrol alur cerita
-let currentScene = story[0];
-
+// Fungsi untuk menemukan adegan berdasarkan ID
 function findScene(id) {
     return story.find(scene => scene.id === id);
 }
 
+// Fungsi untuk menampilkan adegan
 function showScene(scene) {
     backgroundImage.src = scene.background;
     if (scene.character) {
@@ -91,12 +109,40 @@ function showScene(scene) {
     }
     characterName.textContent = scene.name;
     dialogueText.textContent = scene.dialogue;
-    choicesContainer.style.display = 'none';
-    nextButton.style.display = 'block';
-    if (scene.id === 'akhir_bab1') {
-        nextButton.textContent = 'Lanjut ke Bab 2';
+
+    if (scene.choices) {
+        nextButton.style.display = 'none';
+        choicesContainer.style.display = 'flex';
+        choicesContainer.innerHTML = '';
+        scene.choices.forEach(choice => {
+            const button = document.createElement('button');
+            button.classList.add('choice-button');
+            button.textContent = choice.text;
+            button.addEventListener('click', () => handleChoice(choice.nextScene));
+            choicesContainer.appendChild(button);
+        });
+    } else {
+        nextButton.style.display = 'block';
+        choicesContainer.style.display = 'none';
+        nextButton.textContent = 'Lanjut';
+        if (scene.id === 'akhir_bab1') {
+            nextButton.textContent = 'Lanjut ke Bab 2';
+        }
     }
 }
+
+// Fungsi untuk menangani pilihan
+function handleChoice(nextSceneId) {
+    const nextScene = findScene(nextSceneId);
+    if (nextScene) {
+        currentScene = nextScene;
+        showScene(currentScene);
+    }
+}
+
+// Event listener untuk tombol Lanjut
+let currentScene = findScene('awal');
+showScene(currentScene);
 
 nextButton.addEventListener('click', () => {
     const nextSceneId = currentScene.next;
@@ -107,5 +153,3 @@ nextButton.addEventListener('click', () => {
         showScene(currentScene);
     }
 });
-
-showScene(currentScene);
