@@ -10,7 +10,7 @@ const nextButton = document.getElementById('next-button');
 const story = [
     {
         id: 'awal_bab4',
-        background: '../images/backgrounds/lab_chrono.jpg',
+        background: '../images/backgrounds/lab_chrono.png',
         character: '../images/characters/zain.png',
         name: 'Zain',
         dialogue: 'Inilah dia, The Chronos. Aku menyembunyikannya di sini setelah Gracia... setelah dia menghilang.',
@@ -18,7 +18,7 @@ const story = [
     },
     {
         id: 'penemuan_log',
-        background: '../images/backgrounds/lab_chrono.jpg',
+        background: '../images/backgrounds/lab_chrono.png',
         character: '../images/characters/adam.png',
         name: 'Adam',
         dialogue: 'Profesor, ini luar biasa. Tapi... ada data log yang tersembunyi. Sebuah peringatan: "Jangan kembali. Ia adalah penjaga waktu."',
@@ -26,7 +26,7 @@ const story = [
     },
     {
         id: 'konsekuensi',
-        background: '../images/backgrounds/lab_chrono.jpg',
+        background: '../images/backgrounds/lab_chrono.png',
         character: '../images/characters/adam.png',
         name: 'Adam',
         dialogue: 'Jika Anda kembali dan berhasil, versi diri Anda yang sekarang harus lenyap. Semua yang Anda kenal akan hilang.',
@@ -34,7 +34,7 @@ const story = [
     },
     {
         id: 'pilihan_utama',
-        background: '../images/backgrounds/lab_chrono.jpg',
+        background: '../images/backgrounds/lab_chrono.png',
         character: '../images/characters/zain.png',
         name: 'Zain',
         dialogue: 'Aku tahu. Tapi ini bukan tentang fisika. Ini tentang sebuah janji. Apa yang harus aku lakukan?',
@@ -46,7 +46,7 @@ const story = [
     // Jalur Good Ending
     {
         id: 'pilihan_kembali',
-        background: '../images/backgrounds/lab_chrono.jpg',
+        background: '../images/backgrounds/lab_chrono.png',
         character: '../images/characters/zain.png',
         name: 'Zain',
         dialogue: 'Aku tidak peduli. Aku tidak bisa hidup di dunia ini, dunia yang hampa tanpa dirinya.',
@@ -55,7 +55,7 @@ const story = [
     // Jalur Sad Ending
     {
         id: 'pilihan_menyerah',
-        background: '../images/backgrounds/lab_chrono.jpg',
+        background: '../images/backgrounds/lab_chrono.png',
         character: '../images/characters/zain.png',
         name: 'Zain',
         dialogue: 'Aku tidak sanggup. Aku tidak bisa mengambil risiko menghapus realitas. Gracia... maafkan aku.',
@@ -71,18 +71,15 @@ function findScene(id) {
 // Fungsi untuk menampilkan adegan
 function showScene(scene) {
     backgroundImage.src = scene.background;
-
     if (scene.character) {
         characterImage.src = scene.character;
         characterImage.style.display = 'block';
     } else {
         characterImage.style.display = 'none';
     }
-
     characterName.textContent = scene.name;
     dialogueText.textContent = scene.dialogue;
 
-    // Menampilkan tombol Pilihan atau tombol Lanjut
     if (scene.choices) {
         nextButton.style.display = 'none';
         choicesContainer.style.display = 'flex';
@@ -102,20 +99,17 @@ function showScene(scene) {
 
 // Fungsi untuk menangani pilihan pemain
 function handleChoice(nextSceneId) {
-    const nextScene = findScene(nextSceneId);
     if (nextSceneId === 'sad_ending') {
         window.location.href = '../endings/sad-ending.html';
-    } else if (nextSceneId === 'pilihan_kembali') {
-        currentScene = nextScene;
-        showScene(currentScene);
-        // Ubah tombol untuk melanjutkan ke bab 5
-        nextButton.textContent = 'Lanjut ke Bab 5';
-        nextButton.addEventListener('click', () => {
-            window.location.href = '../chapter-5/index.html';
-        }, { once: true }); // Mencegah multiple event listeners
     } else {
-        currentScene = nextScene;
+        currentScene = findScene(nextSceneId);
         showScene(currentScene);
+        if (currentScene.next === 'lanjut_bab5') {
+            nextButton.textContent = 'Lanjut ke Bab 5';
+            nextButton.addEventListener('click', () => {
+                window.location.href = '../chapter-5/index.html';
+            }, { once: true });
+        }
     }
 }
 
