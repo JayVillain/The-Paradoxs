@@ -47,6 +47,7 @@ body {
     padding: 20px;
     box-sizing: border-box;
     z-index: 3;
+    position: relative; /* Ini sangat penting untuk posisi tombol yang benar */
 }
 
 #character-name {
@@ -59,7 +60,7 @@ body {
 #dialogue-text {
     font-size: 1em;
     line-height: 1.5;
-    margin: 0;
+    margin: 0 0 40px 0; /* Margin bawah yang baru agar teks tidak tertutup tombol */
 }
 
 #choices-container {
