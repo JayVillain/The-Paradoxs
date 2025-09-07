@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romantic Moments</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS Variables for Easy Customization */
+        :root {
+            --primary-bg-color: #ffdde1;
+            --secondary-bg-color: #ee9ca7;
+            --primary-text-color: #fff;
+            --secondary-text-color: #fffafc;
+            --accent-color: #ffe6eb;
+        }
+
+        /* General Styling */
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, var(--primary-bg-color), var(--secondary-bg-color));
+            color: var(--primary-text-color);
+            text-align: center;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Header Section with Parallax */
+        header {
+            padding: 100px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            position: relative;
+            background-attachment: fixed; /* For Parallax Effect */
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin: 0;
+            color: var(--secondary-text-color);
+            text-shadow: 0px 4px 15px rgba(0,0,0,0.25);
+            animation: fadeInDown 1.5s ease-out;
+        }
+
+        header p {
+            margin-top: 20px;
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: var(--accent-color);
+            animation: fadeIn 2s ease-out 0.5s forwards;
+            opacity: 0; /* Initially hidden */
+        }
+
+        /* Main Content Styling */
+        .content-section {
+            padding: 80px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            margin: 40px 0;
+        }
+        
+        .content-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--secondary-text-color);
+            text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .content-section p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+            color: var(--primary-text-color);
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: rgba(255, 255, 255, 0.3);
+            border: 2px solid var(--accent-color);
+            border-radius: 50px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            background: var(--accent-color);
+            color: #d14467;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Gallery Section */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 50px;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.5s ease;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.07);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+
+        /* Footer */
+        footer {
+            padding: 30px;
+            font-size: 0.9rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: var(--accent-color);
+        }
+
+        /* Keyframe Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                padding: 80px 10px;
+            }
+            .gallery {
+                padding: 30px 10px;
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Momen Terindah Kita</h1>
+        <p>Sebuah koleksi kenangan, dibingkai dengan cinta dan kehangatan.</p>
+    </header>
+    
+    <main>
+        <section class="content-section">
+            <h2>Our Story</h2>
+            <p>
+                Setiap foto di halaman ini adalah sepotong kisah dari perjalanan kita. Dari tawa kecil hingga petualangan tak terduga, setiap momen adalah bagian dari babak romansa yang terus ditulis. Nikmati setiap kenangan yang terukir di sini.
+            </p>
+            <a href="#gallery-section" class="cta-button">Lihat Galeri Foto</a>
+        </section>
+        
+        <section id="gallery-section" class="gallery">
+            <img src="images/foto1.jpg" alt="Romantic Photo 1">
+            <img src="images/foto2.jpg" alt="Romantic Photo 2">
+            <img src="images/foto3.jpg" alt="Romantic Photo 3">
+            <img src="images/foto4.jpg" alt="Romantic Photo 4">
+            <img src="images/foto5.jpg" alt="Romantic Photo 5">
+            <img src="images/foto6.jpg" alt="Romantic Photo 6">
+            <img src="images/foto7.jpg" alt="Romantic Photo 7">
+            <img src="images/foto8.jpg" alt="Romantic Photo 8">
+            <img src="images/foto9.jpg" alt="Romantic Photo 9">
+            <img src="images/foto10.jpg" alt="Romantic Photo 10">
+        </section>
+    </main>
+    
+    <footer>
+        &copy; 2025 Romantic Moments | Dibuat dengan cinta 💖
+    </footer>
+</body>
+</html>
