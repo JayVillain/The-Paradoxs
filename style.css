@@ -8,6 +8,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    overflow: hidden; /* Mencegah scroll yang tidak perlu */
 }
 
 .game-container {
@@ -17,62 +18,67 @@ body {
     border: 2px solid #555;
     box-shadow: 0 0 20px rgba(0,0,0,0.5);
     background-color: #000;
-    overflow: hidden;
+    overflow: hidden; /* Memastikan konten tidak keluar dari wadah */
 }
 
-#background-image, #character-image {
+#background-image {
     position: absolute;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: opacity 1s ease-in-out;
+    z-index: 0; /* Latar belakang paling bawah */
 }
 
 #character-image {
-    height: 85%;
+    position: absolute;
+    height: 85%; /* Ukuran karakter */
     width: auto;
-    bottom: 0;
+    bottom: 120px; /* Di atas kotak dialog */
     left: 50%;
     transform: translateX(-50%);
-    z-index: 2;
+    z-index: 1; /* Karakter di atas latar belakang */
+    transition: opacity 0.5s ease-in-out; /* Transisi untuk karakter */
 }
 
 #dialogue-box {
     position: absolute;
     bottom: 0;
     width: 100%;
-    min-height: 120px;
-    background-color: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(5px);
+    min-height: 120px; /* Tinggi minimum kotak dialog */
+    background-color: rgba(0, 0, 0, 0.85); /* Sedikit lebih gelap */
+    backdrop-filter: blur(3px); /* Efek blur */
     padding: 20px;
     box-sizing: border-box;
-    z-index: 3;
-    position: relative; /* Ini sangat penting untuk posisi tombol yang benar */
+    z-index: 10; /* Pastikan ini di atas semua elemen lain */
+    display: flex;
+    flex-direction: column; /* Mengatur elemen di dalam dialog box */
+    justify-content: space-between; /* Untuk mendorong tombol ke bawah */
 }
 
 #character-name {
     font-size: 1.2em;
     font-weight: bold;
-    color: #ffd700;
+    color: #ffd700; /* Warna kuning emas */
     margin-bottom: 5px;
 }
 
 #dialogue-text {
     font-size: 1em;
     line-height: 1.5;
-    margin: 0 0 40px 0; /* Margin bawah yang baru agar teks tidak tertutup tombol */
+    margin: 0;
+    flex-grow: 1; /* Memungkinkan teks mengambil ruang yang tersedia */
 }
 
 #choices-container {
     position: absolute;
-    bottom: 150px;
-    width: 90%;
+    bottom: 150px; /* Di atas kotak dialog */
+    width: 80%; /* Lebar container pilihan */
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     flex-direction: column;
     gap: 10px;
-    z-index: 4;
+    z-index: 11; /* Di atas dialog box */
 }
 
 .choice-button {
@@ -84,6 +90,8 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease;
     text-align: left;
+    width: 100%;
+    box-sizing: border-box; /* Memastikan padding tidak melebihi lebar */
 }
 
 .choice-button:hover {
@@ -91,14 +99,12 @@ body {
 }
 
 #next-button {
-    position: absolute;
-    right: 20px;
-    bottom: 20px;
+    align-self: flex-end; /* Memosisikan tombol ke kanan bawah dalam flex container */
     background-color: #4CAF50;
     color: white;
     border: none;
     padding: 10px 20px;
     font-size: 1em;
     cursor: pointer;
-    z-index: 4;
+    margin-top: 10px; /* Sedikit ruang di atas tombol */
 }
