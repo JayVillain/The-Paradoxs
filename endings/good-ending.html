@@ -3,20 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visual Novel: Akhir Bahagia</title>
+    <title>Visual Novel: Epilog</title>
     <link rel="stylesheet" href="../style.css">
 </head>
 <body>
 
     <div class="game-container">
-        <img id="background-image" src="../images/backgrounds/rumah_siang.png" alt="Latar Belakang">
-        <img id="character-image" src="../images/characters/gracia.png" alt="Karakter">
+        <img id="background-image" src="" alt="Latar Belakang">
+        <img id="character-image" src="" alt="Karakter" style="display: none;">
 
         <div id="dialogue-box">
-            <p id="character-name">Gracia</p>
-            <p id="dialogue-text">Kau tidur, Profesor. Pasti mimpi buruk, ya?</p>
+            <p id="character-name"></p>
+            <p id="dialogue-text"></p>
         </div>
+
+        <div id="choices-container" style="display: none;"></div>
+        
+        <button id="next-button">Lanjut</button>
     </div>
 
+    <script src="good-ending.js"></script>
 </body>
 </html>
