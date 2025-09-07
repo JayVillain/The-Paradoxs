@@ -1,0 +1,37 @@
+/game-visual-novel/
+├── /chapter-1/
+│   ├── index.html
+│   └── chapter-1.js
+├── /chapter-2/
+│   ├── index.html
+│   └── chapter-2.js
+├── /chapter-3/
+│   ├── index.html
+│   └── chapter-3.js
+├── /chapter-4/
+│   ├── index.html
+│   └── chapter-4.js
+├── /chapter-5/
+│   ├── index.html
+│   └── chapter-5.js
+├── /chapter-6/
+│   ├── index.html
+│   └── chapter-6.js
+├── /endings/
+│   ├── good-ending.html
+│   └── sad-ending.html
+├── /images/
+│   ├── /backgrounds/
+│   │   ├── rumah_gelap.jpg
+│   │   ├── galeri_seni.jpg
+│   │   ├── lab_siang.jpg
+│   │   ├── lab_malam.jpg
+│   │   ├── koridor_kampus.jpg
+│   │   ├── lab_chrono.jpg
+│   │   └── rumah_siang.jpg
+│   └── /characters/
+│       ├── zain.png
+│       ├── zain_muda.png
+│       ├── gracia.png
+│       └── adam.png
+└── style.css
