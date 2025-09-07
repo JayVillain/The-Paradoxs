@@ -97,17 +97,24 @@ function findScene(id) {
 
 // Fungsi untuk menampilkan adegan
 function showScene(scene) {
+    // Tangani adegan 'Tamat'
     if (scene.id === 'tamat') {
-        document.getElementById('dialogue-box').innerHTML = `<p id="dialogue-text">${scene.dialogue}</p>`;
-        document.getElementById('dialogue-box').style.textAlign = 'center';
-        nextButton.style.display = 'block';
-        nextButton.textContent = 'Main Lagi';
-        nextButton.onclick = () => {
-            window.location.href = '../index.html';
-        };
+        backgroundImage.src = scene.background;
+        characterImage.style.display = 'none';
+        choicesContainer.style.display = 'none';
+
+        document.getElementById('dialogue-box').innerHTML = `
+            <p id="dialogue-text" style="text-align: center; margin-bottom: 20px; font-size: 1.2em;">${scene.dialogue}</p>
+            <button class="restart-button" onclick="window.location.href = '../index.html'">Main Lagi</button>
+        `;
+        document.getElementById('dialogue-box').style.display = 'flex';
+        document.getElementById('dialogue-box').style.flexDirection = 'column';
+        document.getElementById('dialogue-box').style.alignItems = 'center';
+        nextButton.style.display = 'none'; // Sembunyikan tombol Lanjut
         return;
     }
-
+    
+    // Logic untuk adegan normal
     backgroundImage.src = scene.background;
     if (scene.character) {
         characterImage.src = scene.character;
