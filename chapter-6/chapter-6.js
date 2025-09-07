@@ -100,9 +100,18 @@ let currentScene = findScene('awal_bab6');
 showScene(currentScene);
 
 nextButton.addEventListener('click', () => {
-    const nextScene = findScene(currentScene.next);
-    if (nextScene && !nextScene.choices) {
-        currentScene = nextScene;
-        showScene(currentScene);
+    // Logika baru yang lebih sederhana untuk menangani semua perpindahan
+    const nextSceneId = currentScene.next;
+    
+    if (nextSceneId === 'redirect_good_ending') {
+        window.location.href = '../endings/good-ending.html';
+    } else if (nextSceneId === 'redirect_sad_ending') {
+        window.location.href = '../endings/sad-ending.html';
+    } else {
+        const nextScene = findScene(nextSceneId);
+        if (nextScene) {
+            currentScene = nextScene;
+            showScene(currentScene);
+        }
     }
 });
