@@ -10,7 +10,7 @@ const nextButton = document.getElementById('next-button');
 const story = [
     {
         id: 'awal_bab3',
-        background: '../images/backgrounds/lab_siang.jpg',
+        background: '../images/backgrounds/lab_siang.png',
         character: '../images/characters/adam.png',
         name: 'Adam',
         dialogue: 'Profesor, ini luar biasa. Jam tangan ini... bukan jam tangan biasa. Ini adalah prototipe kuantum.',
@@ -18,7 +18,7 @@ const story = [
     },
     {
         id: 'enkripsi',
-        background: '../images/backgrounds/lab_siang.jpg',
+        background: '../images/backgrounds/lab_siang.png',
         character: '../images/characters/adam.png',
         name: 'Adam',
         dialogue: 'Ada enkripsi di dalamnya. Dan ini bukan enkripsi biasa. Ini seolah-olah dikodekan oleh alam semesta itu sendiri.',
@@ -26,7 +26,7 @@ const story = [
     },
     {
         id: 'zain_menemukan',
-        background: '../images/backgrounds/lab_siang.jpg',
+        background: '../images/backgrounds/lab_siang.png',
         character: '../images/characters/zain.png',
         name: 'Narator',
         dialogue: 'Saat Adam sibuk, Zain menemukan sebuah folder tersembunyi. Folder bernama "Proyek Chronos".',
@@ -34,7 +34,7 @@ const story = [
     },
     {
         id: 'teori_disintegrasi',
-        background: '../images/backgrounds/lab_siang.jpg',
+        background: '../images/backgrounds/lab_siang.png',
         character: '../images/characters/zain.png',
         name: 'Zain',
         dialogue: 'Ini adalah hipotesis yang saya tinggalkan karena terlalu gila untuk menjadi kenyataan. Teori disintegrasi waktu.',
@@ -42,7 +42,7 @@ const story = [
     },
     {
         id: 'rekaman_video',
-        background: '../images/backgrounds/lab_siang.jpg',
+        background: '../images/backgrounds/lab_siang.png',
         character: '../images/characters/zain_muda.png',
         name: 'Narator',
         dialogue: 'Adam memutar rekaman video. Terlihat Zain yang lebih muda, menjelaskan tentang mesin yang dibuatnya. Sebuah prototipe yang bisa memanipulasi waktu.',
@@ -50,7 +50,7 @@ const story = [
     },
     {
         id: 'rekaman_terakhir',
-        background: '../images/backgrounds/lab_siang.jpg',
+        background: '../images/backgrounds/lab_siang.png',
         character: '../images/characters/gracia.png',
         name: 'Narator',
         dialogue: 'Rekaman itu menunjukkan Zain muda berjalan ke belakang kamera, lalu Gracia mengulurkan tangannya untuk menyentuh mesin. Tepat sebelum tangannya menyentuh mesin, rekaman itu terputus.',
@@ -58,7 +58,7 @@ const story = [
     },
     {
         id: 'akhir_bab3',
-        background: '../images/backgrounds/lab_siang.jpg',
+        background: '../images/backgrounds/lab_siang.png',
         character: '../images/characters/zain.png',
         name: 'Zain',
         dialogue: 'Aku... aku pelakunya. Kesalahan fatal yang kuperbuat telah menghapus Gracia dari dunia.',
@@ -69,37 +69,35 @@ const story = [
 // Fungsi utama untuk mengontrol alur cerita
 let currentScene = story[0];
 
+function findScene(id) {
+    return story.find(scene => scene.id === id);
+}
+
 function showScene(scene) {
     backgroundImage.src = scene.background;
-
     if (scene.character) {
         characterImage.src = scene.character;
         characterImage.style.display = 'block';
     } else {
         characterImage.style.display = 'none';
     }
-
     characterName.textContent = scene.name;
     dialogueText.textContent = scene.dialogue;
-
     choicesContainer.style.display = 'none';
     nextButton.style.display = 'block';
-
     if (scene.id === 'akhir_bab3') {
         nextButton.textContent = 'Lanjut ke Bab 4';
     }
 }
 
 nextButton.addEventListener('click', () => {
-    const nextScene = story.find(scene => scene.id === currentScene.next);
-
-    if (currentScene.next === 'lanjut_bab4') {
+    const nextSceneId = currentScene.next;
+    if (nextSceneId === 'lanjut_bab4') {
         window.location.href = '../chapter-4/index.html';
-    } else if (nextScene) {
-        currentScene = nextScene;
+    } else {
+        currentScene = findScene(nextSceneId);
         showScene(currentScene);
     }
 });
 
-// Mulai permainan
 showScene(currentScene);
