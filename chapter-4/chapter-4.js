@@ -94,9 +94,12 @@ function showScene(scene) {
     } else {
         nextButton.style.display = 'block';
         choicesContainer.style.display = 'none';
-        nextButton.textContent = 'Lanjut';
+        
+        // Atur teks tombol "Lanjut"
         if (scene.next === 'lanjut_bab5') {
             nextButton.textContent = 'Lanjut ke Bab 5';
+        } else {
+            nextButton.textContent = 'Lanjut';
         }
     }
 }
@@ -116,13 +119,14 @@ let currentScene = findScene('awal_bab4');
 showScene(currentScene);
 
 nextButton.addEventListener('click', () => {
-    const nextSceneId = currentScene.next;
-    
-    // Logika tambahan untuk menangani Sad Ending
-    if (nextSceneId === 'sad_ending') {
+    // Periksa apakah adegan berikutnya adalah halaman lain
+    if (currentScene.next === 'lanjut_bab5') {
+        window.location.href = '../chapter-5/index.html';
+    } else if (currentScene.next === 'sad_ending') {
         window.location.href = '../endings/sad-ending.html';
     } else {
-        const nextScene = findScene(nextSceneId);
+        // Jika tidak, lanjutkan ke adegan berikutnya di dalam bab yang sama
+        const nextScene = findScene(currentScene.next);
         if (nextScene) {
             currentScene = nextScene;
             showScene(currentScene);
