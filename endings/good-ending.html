@@ -5,23 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visual Novel: Epilog</title>
     <link rel="stylesheet" href="../style.css">
+    <style>
+        .ending-button-container {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+        }
+
+        .restart-button {
+            background-color: #337ab7;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
 
     <div class="game-container">
-        <img id="background-image" src="" alt="Latar Belakang">
-        <img id="character-image" src="" alt="Karakter" style="display: none;">
+        <img id="background-image" src="../images/backgrounds/rumah_siang.png" alt="Latar Belakang">
+        <img id="character-image" src="../images/characters/gracia.png" alt="Karakter">
 
         <div id="dialogue-box">
-            <p id="character-name"></p>
-            <p id="dialogue-text"></p>
+            <p id="character-name">Gracia</p>
+            <p id="dialogue-text">
+                Kau tidur, Profesor. Pasti mimpi buruk, ya?
+                <br><br>
+                Zain menatapnya, air matanya menetes. Ia teringat akan semua perjuangannya di alur waktu yang lama, semua rasa sakit yang ia rasakan. Tapi, kini semua itu sirna. Ia berada di sini, di alur waktu yang baru, di mana Gracia tidak pernah menghilang.
+                <br><br>
+                "Ada apa?" tanya Gracia, bingung. "Tidak ada apa-apa," jawab Zain, suaranya parau. "Aku hanya... bahagia kau di sini."
+            </p>
         </div>
 
-        <div id="choices-container" style="display: none;"></div>
-        
-        <button id="next-button">Lanjut</button>
+        <div class="ending-button-container">
+            <button class="restart-button" onclick="window.location.href = '../index.html'">Main Lagi</button>
+        </div>
     </div>
 
-    <script src="good-ending.js"></script>
 </body>
 </html>
