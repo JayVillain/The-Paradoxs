@@ -8,7 +8,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    overflow: hidden; /* Mencegah scroll yang tidak perlu */
+    overflow: hidden;
 }
 
 .game-container {
@@ -18,47 +18,49 @@ body {
     border: 2px solid #555;
     box-shadow: 0 0 20px rgba(0,0,0,0.5);
     background-color: #000;
-    overflow: hidden; /* Memastikan konten tidak keluar dari wadah */
+    overflow: hidden;
 }
 
-#background-image {
+#background-image, #character-image {
     position: absolute;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: 0; /* Latar belakang paling bawah */
+    z-index: 0;
+    /* Transisi gambar */
+    transition: opacity 1.5s ease-in-out;
 }
 
 #character-image {
-    position: absolute;
-    height: 85%; /* Ukuran karakter */
+    height: 85%;
     width: auto;
-    bottom: 120px; /* Di atas kotak dialog */
+    bottom: 120px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 1; /* Karakter di atas latar belakang */
-    transition: opacity 0.5s ease-in-out; /* Transisi untuk karakter */
+    z-index: 1;
 }
 
 #dialogue-box {
     position: absolute;
     bottom: 0;
     width: 100%;
-    min-height: 120px; /* Tinggi minimum kotak dialog */
-    background-color: rgba(0, 0, 0, 0.85); /* Sedikit lebih gelap */
-    backdrop-filter: blur(3px); /* Efek blur */
+    min-height: 120px;
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(3px);
     padding: 20px;
     box-sizing: border-box;
-    z-index: 10; /* Pastikan ini di atas semua elemen lain */
+    z-index: 10;
     display: flex;
-    flex-direction: column; /* Mengatur elemen di dalam dialog box */
-    justify-content: space-between; /* Untuk mendorong tombol ke bawah */
+    flex-direction: column;
+    justify-content: space-between;
+    /* Transisi untuk kotak dialog */
+    transition: opacity 0.5s ease-in-out;
 }
 
 #character-name {
     font-size: 1.2em;
     font-weight: bold;
-    color: #ffd700; /* Warna kuning emas */
+    color: #ffd700;
     margin-bottom: 5px;
 }
 
@@ -66,19 +68,21 @@ body {
     font-size: 1em;
     line-height: 1.5;
     margin: 0;
-    flex-grow: 1; /* Memungkinkan teks mengambil ruang yang tersedia */
+    flex-grow: 1;
+    /* Transisi untuk teks */
+    transition: opacity 0.5s ease-in-out;
 }
 
 #choices-container {
     position: absolute;
-    bottom: 150px; /* Di atas kotak dialog */
-    width: 80%; /* Lebar container pilihan */
+    bottom: 150px;
+    width: 80%;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     flex-direction: column;
     gap: 10px;
-    z-index: 11; /* Di atas dialog box */
+    z-index: 11;
 }
 
 .choice-button {
@@ -91,7 +95,7 @@ body {
     transition: background-color 0.3s ease;
     text-align: left;
     width: 100%;
-    box-sizing: border-box; /* Memastikan padding tidak melebihi lebar */
+    box-sizing: border-box;
 }
 
 .choice-button:hover {
@@ -99,12 +103,12 @@ body {
 }
 
 #next-button {
-    align-self: flex-end; /* Memosisikan tombol ke kanan bawah dalam flex container */
+    align-self: flex-end;
     background-color: #4CAF50;
     color: white;
     border: none;
     padding: 10px 20px;
     font-size: 1em;
     cursor: pointer;
-    margin-top: 10px; /* Sedikit ruang di atas tombol */
+    margin-top: 10px;
 }
