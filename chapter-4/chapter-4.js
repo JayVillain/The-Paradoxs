@@ -11,7 +11,7 @@ const story = [
     {
         id: 'awal_bab4',
         background: '../images/backgrounds/lab_chrono.png',
-        character: '../images/characters/zain.png',
+        character: '../images/characters/zain_masadepan.png',
         name: 'Zain',
         dialogue: 'Inilah dia, The Chronos. Aku menyembunyikannya di sini setelah Gracia... setelah dia menghilang.',
         next: 'penemuan_log'
@@ -35,7 +35,7 @@ const story = [
     {
         id: 'pilihan_utama',
         background: '../images/backgrounds/lab_chrono.png',
-        character: '../images/characters/zain.png',
+        character: '../images/characters/zain_masadepan.png',
         name: 'Zain',
         dialogue: 'Aku tahu. Tapi ini bukan tentang fisika. Ini tentang sebuah janji. Apa yang harus aku lakukan?',
         choices: [
@@ -47,7 +47,7 @@ const story = [
     {
         id: 'pilihan_kembali',
         background: '../images/backgrounds/lab_chrono.png',
-        character: '../images/characters/zain.png',
+        character: '../images/characters/zain_masadepan.png',
         name: 'Zain',
         dialogue: 'Aku tidak peduli. Aku tidak bisa hidup di dunia ini, dunia yang hampa tanpa dirinya.',
         next: 'lanjut_bab5'
@@ -56,7 +56,7 @@ const story = [
     {
         id: 'pilihan_menyerah',
         background: '../images/backgrounds/lab_chrono.png',
-        character: '../images/characters/zain.png',
+        character: '../images/characters/zain_masadepan.png',
         name: 'Zain',
         dialogue: 'Aku tidak sanggup. Aku tidak bisa mengambil risiko menghapus realitas. Gracia... maafkan aku.',
         next: 'sad_ending'
@@ -94,6 +94,10 @@ function showScene(scene) {
     } else {
         nextButton.style.display = 'block';
         choicesContainer.style.display = 'none';
+        nextButton.textContent = 'Lanjut';
+        if (scene.next === 'lanjut_bab5') {
+            nextButton.textContent = 'Lanjut ke Bab 5';
+        }
     }
 }
 
@@ -104,12 +108,6 @@ function handleChoice(nextSceneId) {
     } else {
         currentScene = findScene(nextSceneId);
         showScene(currentScene);
-        if (currentScene.next === 'lanjut_bab5') {
-            nextButton.textContent = 'Lanjut ke Bab 5';
-            nextButton.addEventListener('click', () => {
-                window.location.href = '../chapter-5/index.html';
-            }, { once: true });
-        }
     }
 }
 
