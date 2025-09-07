@@ -11,15 +11,15 @@ const story = [
     {
         id: 'awal_bab6',
         background: '../images/backgrounds/koridor_kampus.png',
-        character: '../images/characters/zain_muda.png',
+        character: '../images/characters/zain_masadepan.png',
         name: 'Narator',
         dialogue: 'Dalam sekejap mata, Zain berada di koridor universitas. Ia adalah hantu di masa lalunya sendiri. Ia melihat Gracia, dan dirinya yang lebih muda.',
-        next: 'pilihan_terakhir'
+        next: 'zain_muda_berbalik'
     },
     {
-        id: 'pilihan_terakhir',
+        id: 'zain_muda_berbalik',
         background: '../images/backgrounds/koridor_kampus.png',
-        character: '../images/characters/zain_muda.png',
+        character: '../images/characters/zain.png',
         name: 'Zain Muda',
         dialogue: 'Siapa kau?',
         choices: [
@@ -78,6 +78,7 @@ function showScene(scene) {
     } else {
         nextButton.style.display = 'block';
         choicesContainer.style.display = 'none';
+        nextButton.textContent = 'Lanjut';
     }
 }
 
@@ -88,7 +89,7 @@ function handleChoice(nextSceneId) {
         window.location.href = '../endings/good-ending.html';
     } else if (nextSceneId === 'redirect_sad_ending') {
         window.location.href = '../endings/sad-ending.html';
-    } else {
+    } else if (nextScene) {
         currentScene = nextScene;
         showScene(currentScene);
     }
