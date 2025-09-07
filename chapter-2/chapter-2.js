@@ -14,15 +14,18 @@ const story = [
         character: '../images/characters/zain.png',
         name: 'Zain',
         dialogue: 'Jam tangan ini tidak mungkin satu-satunya petunjuk. Pasti ada sesuatu yang lain. Sesuatu yang pernah kuberikan padanya.',
-        next: 'lanjut_lab'
+        next: 'pencarian_di_lab'
     },
     {
-        id: 'lanjut_lab',
+        id: 'pencarian_di_lab',
         background: '../images/backgrounds/lab_siang.png',
         character: '../images/characters/zain.png',
         name: 'Narator',
-        dialogue: 'Zain mencari di setiap sudut labnya. Berjam-jam ia membolak-balik jurnal, buku, dan laci-laci meja kerjanya. Hingga akhirnya ia menemukan sebuah kotak kayu kecil.',
-        next: 'penemuan_kotak'
+        dialogue: 'Zain mencari di setiap sudut labnya. Berjam-jam ia membolak-balik jurnal, buku, dan laci-laci meja kerjanya.',
+        choices: [
+            { text: 'Mencari di laci-laci tersembunyi.', nextScene: 'penemuan_kotak' },
+            { text: 'Memeriksa tumpukan jurnal dan buku.', nextScene: 'penemuan_kotak' }
+        ]
     },
     {
         id: 'penemuan_kotak',
@@ -83,10 +86,33 @@ function showScene(scene) {
     }
     characterName.textContent = scene.name;
     dialogueText.textContent = scene.dialogue;
-    choicesContainer.style.display = 'none';
-    nextButton.style.display = 'block';
-    if (scene.id === 'akhir_bab2') {
-        nextButton.textContent = 'Lanjut ke Bab 3';
+
+    if (scene.choices) {
+        nextButton.style.display = 'none';
+        choicesContainer.style.display = 'flex';
+        choicesContainer.innerHTML = '';
+        scene.choices.forEach(choice => {
+            const button = document.createElement('button');
+            button.classList.add('choice-button');
+            button.textContent = choice.text;
+            button.addEventListener('click', () => handleChoice(choice.nextScene));
+            choicesContainer.appendChild(button);
+        });
+    } else {
+        nextButton.style.display = 'block';
+        choicesContainer.style.display = 'none';
+        nextButton.textContent = 'Lanjut';
+        if (scene.id === 'akhir_bab2') {
+            nextButton.textContent = 'Lanjut ke Bab 3';
+        }
+    }
+}
+
+function handleChoice(nextSceneId) {
+    const nextScene = findScene(nextSceneId);
+    if (nextScene) {
+        currentScene = nextScene;
+        showScene(currentScene);
     }
 }
 
