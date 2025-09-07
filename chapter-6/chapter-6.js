@@ -10,7 +10,7 @@ const nextButton = document.getElementById('next-button');
 const story = [
     {
         id: 'awal_bab6',
-        background: '../images/backgrounds/koridor_kampus.jpg',
+        background: '../images/backgrounds/koridor_kampus.png',
         character: '../images/characters/zain_muda.png',
         name: 'Narator',
         dialogue: 'Dalam sekejap mata, Zain berada di koridor universitas. Ia adalah hantu di masa lalunya sendiri. Ia melihat Gracia, dan dirinya yang lebih muda.',
@@ -18,7 +18,7 @@ const story = [
     },
     {
         id: 'pilihan_terakhir',
-        background: '../images/backgrounds/koridor_kampus.jpg',
+        background: '../images/backgrounds/koridor_kampus.png',
         character: '../images/characters/zain_muda.png',
         name: 'Zain Muda',
         dialogue: 'Siapa kau?',
@@ -30,7 +30,7 @@ const story = [
     // Jalur Good Ending
     {
         id: 'good_ending_path',
-        background: '../images/backgrounds/koridor_kampus.jpg',
+        background: '../images/backgrounds/koridor_kampus.png',
         character: '../images/characters/gracia.png',
         name: 'Narator',
         dialogue: 'Zain muda berhasil diyakinkan dan menarik tangan Gracia. Mereka berdua berjalan keluar lab, tangan bergandengan. Misi selesai. Zain dari masa depan tersenyum.',
@@ -39,7 +39,7 @@ const story = [
     // Jalur Sad Ending
     {
         id: 'sad_ending_path',
-        background: '../images/backgrounds/koridor_kampus.jpg',
+        background: '../images/backgrounds/koridor_kampus.png',
         character: '../images/characters/gracia.png',
         name: 'Narator',
         dialogue: 'Zain muda menolak percaya. Gracia menyentuh mesin, dan ia menghilang. Zain dari masa depan gagal. Ia terperangkap dalam kehampaan, sendirian selamanya.',
@@ -64,7 +64,6 @@ function showScene(scene) {
     characterName.textContent = scene.name;
     dialogueText.textContent = scene.dialogue;
 
-    // Menampilkan tombol Pilihan atau tombol Lanjut
     if (scene.choices) {
         nextButton.style.display = 'none';
         choicesContainer.style.display = 'flex';
@@ -89,7 +88,7 @@ function handleChoice(nextSceneId) {
         window.location.href = '../endings/good-ending.html';
     } else if (nextSceneId === 'redirect_sad_ending') {
         window.location.href = '../endings/sad-ending.html';
-    } else if (nextScene) {
+    } else {
         currentScene = nextScene;
         showScene(currentScene);
     }
