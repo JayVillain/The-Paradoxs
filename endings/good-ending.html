@@ -12,10 +12,22 @@
             left: 50%;
             transform: translateX(-50%);
             z-index: 20;
+            display: flex; /* Mengatur tata letak tombol secara horizontal */
+            gap: 20px; /* Jarak antar tombol */
         }
 
         .restart-button {
             background-color: #337ab7;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .my-wife-button {
+            background-color: #8c26c1; /* Warna ungu untuk tombol baru */
             color: white;
             border: none;
             padding: 10px 20px;
@@ -45,6 +57,7 @@
     
     <div class="ending-buttons-container">
         <button class="restart-button" onclick="window.location.href = '../index.html'">Main Lagi</button>
+        <button class="my-wife-button" onclick="window.location.href = 'mywife.html'">My Wife</button>
     </div>
 
 </body>
