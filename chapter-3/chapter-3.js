@@ -22,12 +22,23 @@ const story = [
         character: '../images/characters/adam.png',
         name: 'Adam',
         dialogue: 'Ada enkripsi di dalamnya. Dan ini bukan enkripsi biasa. Ini seolah-olah dikodekan oleh alam semesta itu sendiri.',
-        next: 'zain_menemukan'
+        next: 'pilihan_pemulihan'
+    },
+    {
+        id: 'pilihan_pemulihan',
+        background: '../images/backgrounds/lab_siang.png',
+        character: '../images/characters/zain_masadepan.png',
+        name: 'Zain',
+        dialogue: 'Bisakah kamu membukanya? Kita harus memulihkan datanya.',
+        choices: [
+            { text: 'Coba gunakan protokol pemulihan data lama.', nextScene: 'zain_menemukan' },
+            { text: 'Coba dengan cara baru yang lebih cepat.', nextScene: 'zain_menemukan' }
+        ]
     },
     {
         id: 'zain_menemukan',
         background: '../images/backgrounds/lab_siang.png',
-        character: '../images/characters/zain.png',
+        character: '../images/characters/zain_masadepan.png', // ZAIN TUA
         name: 'Narator',
         dialogue: 'Saat Adam sibuk, Zain menemukan sebuah folder tersembunyi. Folder bernama "Proyek Chronos".',
         next: 'teori_disintegrasi'
@@ -35,7 +46,7 @@ const story = [
     {
         id: 'teori_disintegrasi',
         background: '../images/backgrounds/lab_siang.png',
-        character: '../images/characters/zain.png',
+        character: '../images/characters/zain_masadepan.png', // ZAIN TUA
         name: 'Zain',
         dialogue: 'Ini adalah hipotesis yang saya tinggalkan karena terlalu gila untuk menjadi kenyataan. Teori disintegrasi waktu.',
         next: 'rekaman_video'
@@ -43,7 +54,7 @@ const story = [
     {
         id: 'rekaman_video',
         background: '../images/backgrounds/lab_siang.png',
-        character: '../images/characters/zain_muda.png',
+        character: '../images/characters/zain.png', // ZAIN MUDA
         name: 'Narator',
         dialogue: 'Adam memutar rekaman video. Terlihat Zain yang lebih muda, menjelaskan tentang mesin yang dibuatnya. Sebuah prototipe yang bisa memanipulasi waktu.',
         next: 'rekaman_terakhir'
@@ -59,20 +70,19 @@ const story = [
     {
         id: 'akhir_bab3',
         background: '../images/backgrounds/lab_siang.png',
-        character: '../images/characters/zain.png',
+        character: '../images/characters/zain_masadepan.png', // ZAIN TUA
         name: 'Zain',
         dialogue: 'Aku... aku pelakunya. Kesalahan fatal yang kuperbuat telah menghapus Gracia dari dunia.',
         next: 'lanjut_bab4'
     }
 ];
 
-// Fungsi utama untuk mengontrol alur cerita
-let currentScene = story[0];
-
+// Fungsi untuk menemukan adegan berdasarkan ID
 function findScene(id) {
     return story.find(scene => scene.id === id);
 }
 
+// Fungsi untuk menampilkan adegan
 function showScene(scene) {
     backgroundImage.src = scene.background;
     if (scene.character) {
@@ -83,12 +93,40 @@ function showScene(scene) {
     }
     characterName.textContent = scene.name;
     dialogueText.textContent = scene.dialogue;
-    choicesContainer.style.display = 'none';
-    nextButton.style.display = 'block';
-    if (scene.id === 'akhir_bab3') {
-        nextButton.textContent = 'Lanjut ke Bab 4';
+
+    if (scene.choices) {
+        nextButton.style.display = 'none';
+        choicesContainer.style.display = 'flex';
+        choicesContainer.innerHTML = '';
+        scene.choices.forEach(choice => {
+            const button = document.createElement('button');
+            button.classList.add('choice-button');
+            button.textContent = choice.text;
+            button.addEventListener('click', () => handleChoice(choice.nextScene));
+            choicesContainer.appendChild(button);
+        });
+    } else {
+        nextButton.style.display = 'block';
+        choicesContainer.style.display = 'none';
+        nextButton.textContent = 'Lanjut';
+        if (scene.id === 'akhir_bab3') {
+            nextButton.textContent = 'Lanjut ke Bab 4';
+        }
     }
 }
+
+// Fungsi untuk menangani pilihan
+function handleChoice(nextSceneId) {
+    const nextScene = findScene(nextSceneId);
+    if (nextScene) {
+        currentScene = nextScene;
+        showScene(currentScene);
+    }
+}
+
+// Event listener untuk tombol Lanjut
+let currentScene = findScene('awal_bab3');
+showScene(currentScene);
 
 nextButton.addEventListener('click', () => {
     const nextSceneId = currentScene.next;
@@ -99,5 +137,3 @@ nextButton.addEventListener('click', () => {
         showScene(currentScene);
     }
 });
-
-showScene(currentScene);
