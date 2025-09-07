@@ -111,17 +111,21 @@ function handleChoice(nextSceneId) {
     }
 }
 
-// Event listener untuk tombol Lanjut (untuk adegan tanpa pilihan)
+// Event listener untuk tombol Lanjut
 let currentScene = findScene('awal_bab4');
 showScene(currentScene);
 
 nextButton.addEventListener('click', () => {
-    const nextScene = findScene(currentScene.next);
-    if (nextScene && !nextScene.choices) {
-        currentScene = nextScene;
-        showScene(currentScene);
-    } else if (nextScene && nextScene.choices) {
-        currentScene = nextScene;
-        showScene(currentScene);
+    const nextSceneId = currentScene.next;
+    
+    // Logika tambahan untuk menangani Sad Ending
+    if (nextSceneId === 'sad_ending') {
+        window.location.href = '../endings/sad-ending.html';
+    } else {
+        const nextScene = findScene(nextSceneId);
+        if (nextScene) {
+            currentScene = nextScene;
+            showScene(currentScene);
+        }
     }
 });
