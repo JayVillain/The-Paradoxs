@@ -9,7 +9,7 @@ const nextButton = document.getElementById('next-button');
 const story = [
     {
         id: 'awal_bab5',
-        background: '../images/backgrounds/lab_chrono.jpg',
+        background: '../images/backgrounds/lab_chrono.png',
         character: '../images/characters/zain.png',
         name: 'Zain',
         dialogue: 'Aku akan melakukannya, Adam. Kita akan mengaktifkan The Chronos.',
@@ -17,7 +17,7 @@ const story = [
     },
     {
         id: 'pesan_masa_depan',
-        background: '../images/backgrounds/lab_chrono.jpg',
+        background: '../images/backgrounds/lab_chrono.png',
         character: '../images/characters/adam.png',
         name: 'Adam',
         dialogue: 'Tunggu, Profesor. Ada sebuah pesan terenkripsi lagi. Ini... dari diri Anda di masa depan.',
@@ -25,7 +25,7 @@ const story = [
     },
     {
         id: 'isi_pesan',
-        background: '../images/backgrounds/lab_chrono.jpg',
+        background: '../images/backgrounds/lab_chrono.png',
         character: '../images/characters/zain.png',
         name: 'Narator',
         dialogue: '"Zain, jika kau mendengarkan ini, itu artinya kau berhasil. Jangan pernah menyentuh Gracia. Jangan."',
@@ -33,7 +33,7 @@ const story = [
     },
     {
         id: 'alasan',
-        background: '../images/backgrounds/lab_chrono.jpg',
+        background: '../images/backgrounds/lab_chrono.png',
         character: '../images/characters/zain.png',
         name: 'Narator',
         dialogue: 'Pesan itu menjelaskan, ada musuh tersembunyi, para penjaga waktu, yang akan menghapus mereka berdua selamanya jika mereka saling bersentuhan di masa lalu. "Gracia tahu. Ia meninggalkan petunjuk."',
@@ -41,7 +41,7 @@ const story = [
     },
     {
         id: 'akhir_bab5',
-        background: '../images/backgrounds/lab_chrono.jpg',
+        background: '../images/backgrounds/lab_chrono.png',
         character: '../images/characters/zain.png',
         name: 'Zain',
         dialogue: 'Aku tidak punya waktu. Aku harus segera bertindak!',
@@ -65,6 +65,10 @@ function showScene(scene) {
     }
     characterName.textContent = scene.name;
     dialogueText.textContent = scene.dialogue;
+    nextButton.style.display = 'block';
+    if (scene.id === 'akhir_bab5') {
+        nextButton.textContent = 'Lanjut ke Bab 6';
+    }
 }
 
 // Event listener untuk tombol Lanjut
