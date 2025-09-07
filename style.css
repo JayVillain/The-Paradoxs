@@ -27,6 +27,7 @@ body {
     height: 100%;
     object-fit: cover;
     z-index: 0;
+    /* Transisi gambar */
     transition: opacity 1.5s ease-in-out;
 }
 
@@ -37,8 +38,6 @@ body {
     left: 50%;
     transform: translateX(-50%);
     z-index: 1;
-    opacity: 0;
-    transition: opacity 1.5s ease-in-out;
 }
 
 #dialogue-box {
@@ -54,6 +53,8 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    /* Transisi untuk kotak dialog */
+    transition: opacity 0.5s ease-in-out;
 }
 
 #character-name {
@@ -68,7 +69,7 @@ body {
     line-height: 1.5;
     margin: 0;
     flex-grow: 1;
-    opacity: 0;
+    /* Transisi untuk teks */
     transition: opacity 0.5s ease-in-out;
 }
 
@@ -101,11 +102,8 @@ body {
     background-color: #555;
 }
 
-/* --- Perbaikan Posisi Tombol Lanjut dan Main Lagi --- */
-
 #next-button {
-    align-self: center; /* Posisikan di tengah */
-    width: 150px; /* Atur lebar agar lebih menonjol */
+    align-self: flex-end;
     background-color: #4CAF50;
     color: white;
     border: none;
@@ -113,22 +111,4 @@ body {
     font-size: 1em;
     cursor: pointer;
     margin-top: 10px;
-}
-
-.ending-button-container {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 20;
-}
-
-.restart-button {
-    background-color: #337ab7;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1em;
-    cursor: pointer;
-    border-radius: 5px;
 }
