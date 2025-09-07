@@ -4,62 +4,276 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visual Novel: Epilog</title>
-    <link rel="stylesheet" href="../style.css">
     <style>
-        /* CSS Tambahan untuk Tombol Baru */
-        .ending-buttons {
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #111;
+            color: #eee;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .game-container {
+            width: 900px;
+            height: 600px;
+            position: relative;
+            border: 2px solid #555;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            background-color: #000;
+            overflow: hidden;
+        }
+
+        #background-image, #character-image {
             position: absolute;
-            bottom: -50px; /* Pindahkan ke bawah game-container */
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        #character-image {
+            height: 85%;
+            width: auto;
+            bottom: 120px;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 20;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        #dialogue-box {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            min-height: 120px;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(3px);
+            padding: 20px;
+            box-sizing: border-box;
+            z-index: 10;
             display: flex;
-            gap: 20px;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        .restart-button {
-            background-color: #337ab7;
+        #character-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 5px;
+        }
+
+        #dialogue-text {
+            font-size: 1em;
+            line-height: 1.5;
+            margin: 0;
+            flex-grow: 1;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        #choices-container {
+            position: absolute;
+            bottom: 150px;
+            width: 80%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 11;
+        }
+
+        .choice-button {
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #777;
+            padding: 12px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-align: left;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .choice-button:hover {
+            background-color: #555;
+        }
+
+        #next-button {
+            align-self: center;
+            width: 150px;
+            background-color: #4CAF50;
             color: white;
             border: none;
             padding: 10px 20px;
             font-size: 1em;
             cursor: pointer;
-            border-radius: 5px;
-        }
-
-        .new-button {
-            background-color: #8c26c1; /* Warna ungu untuk tombol baru */
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1em;
-            cursor: pointer;
-            border-radius: 5px;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
 
     <div class="game-container">
-        <img id="background-image" src="../images/backgrounds/rumah_siang.png" alt="Latar Belakang">
-        <img id="character-image" src="../images/characters/gracia.png" alt="Karakter">
+        <img id="background-image" src="" alt="Latar Belakang">
+        <img id="character-image" src="" alt="Karakter" style="display: none;">
 
         <div id="dialogue-box">
-            <p id="character-name">Gracia</p>
-            <p id="dialogue-text">
-                Kau tidur, Profesor. Pasti mimpi buruk, ya?
-                <br><br>
-                Zain menatapnya, air matanya menetes. Ia teringat akan semua perjuangannya di alur waktu yang lama, semua rasa sakit yang ia rasakan. Tapi, kini semua itu sirna. Ia berada di sini, di alur waktu yang baru, di mana Gracia tidak pernah menghilang.
-                <br><br>
-                "Ada apa?" tanya Gracia, bingung. "Tidak ada apa-apa," jawab Zain, suaranya parau. "Aku hanya... bahagia kau di sini."
-            </p>
+            <p id="character-name"></p>
+            <p id="dialogue-text"></p>
         </div>
+
+        <div id="choices-container" style="display: none;"></div>
+        
+        <button id="next-button">Lanjut</button>
     </div>
 
-    <div class="ending-buttons">
-        <button class="restart-button" onclick="window.location.href = '../index.html'">Main Lagi</button>
-        <button class="new-button" onclick="window.location.href = 'mywife.html'">My Wife</button>
-    </div>
+    <script>
+        // Ambil elemen-elemen dari HTML
+        const backgroundImage = document.getElementById('background-image');
+        const characterImage = document.getElementById('character-image');
+        const characterName = document.getElementById('character-name');
+        const dialogueText = document.getElementById('dialogue-text');
+        const nextButton = document.getElementById('next-button');
+        const choicesContainer = document.getElementById('choices-container');
 
+        // Definisikan cerita untuk Good Ending
+        const story = [
+            {
+                id: 'epilog_awal',
+                background: '../images/backgrounds/rumah_siang.png',
+                character: '../images/characters/gracia.png',
+                name: 'Gracia',
+                dialogue: 'Kau tidur, Profesor. Pasti mimpi buruk, ya?',
+                next: 'lanjut_1'
+            },
+            {
+                id: 'lanjut_1',
+                background: '../images/backgrounds/rumah_siang.png',
+                character: '../images/characters/zain.png',
+                name: 'Narator',
+                dialogue: 'Zain menatapnya, air matanya menetes. Ia teringat akan semua perjuangannya di alur waktu yang lama, semua rasa sakit yang ia rasakan. Tapi, kini semua itu sirna.',
+                next: 'lanjut_2'
+            },
+            {
+                id: 'lanjut_2',
+                background: '../images/backgrounds/rumah_siang.png',
+                character: '../images/characters/gracia.png',
+                name: 'Gracia',
+                dialogue: 'Ada apa?',
+                next: 'lanjut_3'
+            },
+            {
+                id: 'lanjut_3',
+                background: '../images/backgrounds/rumah_siang.png',
+                character: '../images/characters/zain.png',
+                name: 'Zain',
+                dialogue: 'Tidak ada apa-apa. Aku hanya... bahagia kau di sini.',
+                next: 'pergi_ke_lab'
+            },
+            {
+                id: 'pergi_ke_lab',
+                background: '../images/backgrounds/lab_siang.png',
+                character: '../images/characters/zain.png',
+                name: 'Narator',
+                dialogue: 'Gracia tertawa. Mereka berdua bangun dari tempat tidur dan pergi ke lab. The Chronos berada di sana, tertutup kain tebal, tak tersentuh.',
+                next: 'temuan_jam_tangan'
+            },
+            {
+                id: 'temuan_jam_tangan',
+                background: '../images/backgrounds/lab_siang.png',
+                character: '../images/characters/zain.png',
+                name: 'Narator',
+                dialogue: 'Zain melangkah ke mejanya. Sebuah jam tangan tergeletak. Ia membaliknya, dan di sana, terukir kalimat yang sama.',
+                next: 'teks_ukiran'
+            },
+            {
+                id: 'teks_ukiran',
+                background: '../images/backgrounds/lab_siang.png',
+                character: '../images/characters/gracia.png',
+                name: 'Gracia',
+                dialogue: '"Kau tahu kenapa aku masih \'simpan\' kado ulang tahun darimu, bukan karena bagus, tapi karena isinya dulu adalah \'kamu\'."',
+                next: 'akhir'
+            },
+            {
+                id: 'akhir',
+                background: '../images/backgrounds/lab_siang.png',
+                character: '../images/characters/zain.png',
+                name: 'Narator',
+                dialogue: 'Zain menatap Gracia, lalu menatap jam tangan itu. Ia tahu, ia telah berhasil. Ia telah memperbaiki kesalahan di masa lalunya.',
+                next: 'janji'
+            },
+            {
+                id: 'janji',
+                background: '../images/backgrounds/lab_siang.png',
+                character: '../images/characters/zain.png',
+                name: 'Zain',
+                dialogue: 'Kali ini, aku tidak akan pernah membiarkanmu pergi. Aku akan menjagamu, dan juga menjaga janji yang dibuat oleh diriku di masa lalu.',
+                next: 'tamat'
+            },
+            {
+                id: 'tamat',
+                background: '../images/backgrounds/lab_siang.png',
+                character: null,
+                name: 'Tamat',
+                dialogue: 'Terima kasih telah bermain!',
+                next: 'restart'
+            }
+        ];
+
+        // Fungsi untuk menemukan adegan
+        function findScene(id) {
+            return story.find(scene => scene.id === id);
+        }
+
+        // Fungsi untuk menampilkan adegan
+        function showScene(scene) {
+            if (scene.id === 'tamat') {
+                document.getElementById('dialogue-box').innerHTML = `
+                    <p id="dialogue-text" style="text-align: center; margin-bottom: 20px; font-size: 1.2em;">${scene.dialogue}</p>
+                    <button class="restart-button" onclick="window.location.href = '../index.html'">Main Lagi</button>
+                `;
+                document.getElementById('dialogue-box').style.display = 'flex';
+                document.getElementById('dialogue-box').style.flexDirection = 'column';
+                document.getElementById('dialogue-box').style.alignItems = 'center';
+                nextButton.style.display = 'none';
+                return;
+            }
+            
+            backgroundImage.src = scene.background;
+            if (scene.character) {
+                characterImage.src = scene.character;
+                characterImage.style.display = 'block';
+            } else {
+                characterImage.style.display = 'none';
+            }
+            characterName.textContent = scene.name;
+            dialogueText.textContent = scene.dialogue;
+            
+            nextButton.style.display = 'block';
+            choicesContainer.style.display = 'none';
+        }
+
+        // Event listener untuk tombol Lanjut
+        let currentScene = findScene('epilog_awal');
+        showScene(currentScene);
+
+        nextButton.addEventListener('click', () => {
+            const nextScene = findScene(currentScene.next);
+            if (nextScene) {
+                currentScene = nextScene;
+                showScene(currentScene);
+            }
+        });
+    </script>
 </body>
 </html>
