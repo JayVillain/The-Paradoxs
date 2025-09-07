@@ -6,16 +6,29 @@
     <title>Visual Novel: Epilog</title>
     <link rel="stylesheet" href="../style.css">
     <style>
-        .ending-button-container {
+        /* CSS Tambahan untuk Tombol Baru */
+        .ending-buttons {
             position: absolute;
-            bottom: 20px;
+            bottom: -50px; /* Pindahkan ke bawah game-container */
             left: 50%;
             transform: translateX(-50%);
             z-index: 20;
+            display: flex;
+            gap: 20px;
         }
 
         .restart-button {
             background-color: #337ab7;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .new-button {
+            background-color: #8c26c1; /* Warna ungu untuk tombol baru */
             color: white;
             border: none;
             padding: 10px 20px;
@@ -41,10 +54,11 @@
                 "Ada apa?" tanya Gracia, bingung. "Tidak ada apa-apa," jawab Zain, suaranya parau. "Aku hanya... bahagia kau di sini."
             </p>
         </div>
+    </div>
 
-        <div class="ending-button-container">
-            <button class="restart-button" onclick="window.location.href = '../index.html'">Main Lagi</button>
-        </div>
+    <div class="ending-buttons">
+        <button class="restart-button" onclick="window.location.href = '../index.html'">Main Lagi</button>
+        <button class="new-button" onclick="window.location.href = 'mywife.html'">My Wife</button>
     </div>
 
 </body>
