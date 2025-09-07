@@ -4,13 +4,14 @@ const characterImage = document.getElementById('character-image');
 const characterName = document.getElementById('character-name');
 const dialogueText = document.getElementById('dialogue-text');
 const nextButton = document.getElementById('next-button');
+const choicesContainer = document.getElementById('choices-container'); // Pastikan ini ada
 
 // Definisikan cerita untuk Bab 5
 const story = [
     {
         id: 'awal_bab5',
         background: '../images/backgrounds/lab_chrono.png',
-        character: '../images/characters/zain.png',
+        character: '../images/characters/zain_masadepan.png',
         name: 'Zain',
         dialogue: 'Aku akan melakukannya, Adam. Kita akan mengaktifkan The Chronos.',
         next: 'pesan_masa_depan'
@@ -26,7 +27,7 @@ const story = [
     {
         id: 'isi_pesan',
         background: '../images/backgrounds/lab_chrono.png',
-        character: '../images/characters/zain.png',
+        character: '../images/characters/zain_masadepan.png',
         name: 'Narator',
         dialogue: '"Zain, jika kau mendengarkan ini, itu artinya kau berhasil. Jangan pernah menyentuh Gracia. Jangan."',
         next: 'alasan'
@@ -34,7 +35,7 @@ const story = [
     {
         id: 'alasan',
         background: '../images/backgrounds/lab_chrono.png',
-        character: '../images/characters/zain.png',
+        character: '../images/characters/zain_masadepan.png',
         name: 'Narator',
         dialogue: 'Pesan itu menjelaskan, ada musuh tersembunyi, para penjaga waktu, yang akan menghapus mereka berdua selamanya jika mereka saling bersentuhan di masa lalu. "Gracia tahu. Ia meninggalkan petunjuk."',
         next: 'akhir_bab5'
@@ -42,7 +43,7 @@ const story = [
     {
         id: 'akhir_bab5',
         background: '../images/backgrounds/lab_chrono.png',
-        character: '../images/characters/zain.png',
+        character: '../images/characters/zain_masadepan.png',
         name: 'Zain',
         dialogue: 'Aku tidak punya waktu. Aku harus segera bertindak!',
         next: 'lanjut_bab6'
@@ -65,9 +66,15 @@ function showScene(scene) {
     }
     characterName.textContent = scene.name;
     dialogueText.textContent = scene.dialogue;
+    
+    // Pastikan choicesContainer disembunyikan di bab ini
+    choicesContainer.style.display = 'none';
     nextButton.style.display = 'block';
+
     if (scene.id === 'akhir_bab5') {
         nextButton.textContent = 'Lanjut ke Bab 6';
+    } else {
+        nextButton.textContent = 'Lanjut';
     }
 }
 
